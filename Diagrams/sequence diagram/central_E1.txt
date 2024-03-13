@@ -1,0 +1,77 @@
+title Safety Scenario 5: Door Obstacles
+
+participant Passenger2
+participant Floor2Button
+participant Floor2
+participant ElevatorControlSystem
+participant Elevator3
+participant E3Sensor
+participant E3ObstacleSensor
+participant E3Door
+participant E3Bell
+participant HelpButton
+
+participant E3Display
+
+
+
+
+
+Passenger2->Floor2Button:press
+activate Floor2Button
+Floor2Button->Floor2Button:switchOn()
+Floor2Button->Floor2:inform(direction)
+
+
+Floor2->ElevatorControlSystem:floorReq(floorNb,direction)
+activate ElevatorControlSystem
+ElevatorControlSystem->ElevatorControlSystem:moveIdle()
+ElevatorControlSystem->Floor2Button:off
+deactivate Floor2Button
+ElevatorControlSystem->E3Door:open()
+deactivate ElevatorControlSystem
+activate E3Door
+E3Door->E3Bell:ring()
+E3Door->E3Door:openDoor()
+deactivate E3Door
+
+activate ElevatorControlSystem
+
+ElevatorControlSystem->E3Door:close()
+deactivate ElevatorControlSystem
+activate E3Door
+E3Door->E3Bell:ring()
+E3Door->E3Door:closeDoor()
+activate E3ObstacleSensor
+E3ObstacleSensor->ElevatorControlSystem:ObstacleWarning()
+activate ElevatorControlSystem
+deactivate E3ObstacleSensor
+ElevatorControlSystem->E3Door:open()
+
+E3Door->E3Door:openDoor()
+deactivate E3Door
+ElevatorControlSystem->E3Door:close()
+activate E3Door
+E3Door->E3Door:closeDoor()
+deactivate E3Door
+
+activate E3ObstacleSensor
+E3ObstacleSensor->ElevatorControlSystem:ObstacleWarning()
+deactivate E3ObstacleSensor
+ElevatorControlSystem->E3Display:warningDisplay()
+
+ElevatorControlSystem->E3Door:open()
+activate E3Door
+
+E3Door->E3Door:openDoor()
+deactivate E3Door
+ElevatorControlSystem->E3Door:close()
+deactivate ElevatorControlSystem
+activate E3Door
+E3Door->E3Door:closeDoor()
+E3Door->ElevatorControlSystem:readyToMove(carNumber)
+deactivate E3Door
+activate ElevatorControlSystem
+
+
+

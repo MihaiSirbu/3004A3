@@ -1,0 +1,86 @@
+title Safety Scenario 2: Power Outage
+
+participant PowerOutageSensor
+participant Passenger2
+participant Floor2Button
+participant Floor2
+participant ElevatorControlSystem
+participant Elevator3
+participant E3Sensor
+participant E3Door
+participant E3Bell
+participant adestinationButton
+
+participant E3Display
+participant Floor3
+participant Floor4
+
+
+
+Passenger2->Floor2Button:press
+activate Floor2Button
+Floor2Button->Floor2Button:switchOn()
+Floor2Button->Floor2:inform(direction)
+
+
+Floor2->ElevatorControlSystem:floorReq(floorNb,direction)
+activate ElevatorControlSystem
+ElevatorControlSystem->ElevatorControlSystem:moveIdle()
+ElevatorControlSystem->Floor2Button:off
+deactivate Floor2Button
+ElevatorControlSystem->E3Door:open
+deactivate ElevatorControlSystem
+activate E3Door
+E3Door->E3Bell:ring()
+E3Door->E3Door:openDoor()
+deactivate E3Door
+Passenger2->adestinationButton:presses
+activate adestinationButton
+adestinationButton->Elevator3:carRequest(floorNb)
+
+deactivate adestinationButton
+activate Elevator3
+Elevator3->ElevatorControlSystem:carRequest(floorNb)
+activate ElevatorControlSystem
+deactivate Elevator3
+ElevatorControlSystem->E3Door:close()
+deactivate ElevatorControlSystem
+activate E3Door
+E3Door->E3Door:closeDoor()
+E3Door->E3Bell:ring()
+E3Door->ElevatorControlSystem:readyToMove(carNumber)
+activate ElevatorControlSystem
+deactivate E3Door
+ElevatorControlSystem->Elevator3:start(Direction)
+deactivate ElevatorControlSystem
+activate Elevator3
+
+
+Floor3->E3Sensor:detectMe(floorNb)
+activate E3Sensor
+E3Sensor->ElevatorControlSystem:newFloor(floorNb)
+activate ElevatorControlSystem
+deactivate E3Sensor
+ElevatorControlSystem->E3Display:update(floorNb)
+ElevatorControlSystem->ElevatorControlSystem:decision()
+deactivate ElevatorControlSystem
+PowerOutageSensor->ElevatorControlSystem:informs
+activate ElevatorControlSystem
+ElevatorControlSystem->ElevatorControlSystem:decision()
+
+FireAlarmButton->ElevatorControlSystem:PowerOutage()
+
+
+ElevatorControlSystem->E3Display:text/audio Warning update
+
+
+
+ElevatorControlSystem->Elevator3:stop()
+
+Elevator3->adestinationButton:off()
+deactivate Elevator3
+ElevatorControlSystem->E3Door:open()
+deactivate ElevatorControlSystem
+activate E3Door
+E3Door->E3Bell:ring()
+deactivate E3Door

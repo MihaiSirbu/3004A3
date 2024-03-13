@@ -1,0 +1,74 @@
+title Success Scenario 1: Elevator 2 - Passenger 2 - Floor 3 to Floor 4
+
+
+
+
+participant Passenger2
+participant Floor3Button
+participant Floor3
+participant ElevatorControlSystem
+participant Elevator2
+participant E2Sensor
+participant E2Door
+participant E2Bell
+participant adestinationButton
+participant E2Display
+participant Floor4
+
+
+Passenger2->Floor3Button:press
+activate Floor3Button
+Floor3Button->Floor3Button:switchOn()
+Floor3Button->Floor3:inform(direction)
+
+
+Floor3->ElevatorControlSystem:floorReq(floorNb,direction)
+activate ElevatorControlSystem
+ElevatorControlSystem->ElevatorControlSystem:moveIdle()
+ElevatorControlSystem->Floor3Button:off
+deactivate Floor3Button
+ElevatorControlSystem->E2Door:open
+deactivate ElevatorControlSystem
+activate E2Door
+E2Door->E2Bell:ring()
+E2Door->E2Door:openDoor()
+deactivate E2Door
+Passenger2->adestinationButton:presses
+activate adestinationButton
+adestinationButton->Elevator2:carRequest(floorNb)
+
+deactivate adestinationButton
+activate Elevator2
+Elevator2->ElevatorControlSystem:carRequest(floorNb)
+activate ElevatorControlSystem
+deactivate Elevator2
+ElevatorControlSystem->E2Door:close()
+deactivate ElevatorControlSystem
+activate E2Door
+E2Door->E2Door:closeDoor()
+E2Door->E2Bell:ring()
+E2Door->ElevatorControlSystem:readyToMove(carNumber)
+activate ElevatorControlSystem
+deactivate E2Door
+ElevatorControlSystem->Elevator2:start(Direction)
+deactivate ElevatorControlSystem
+activate Elevator2
+Floor4->E2Sensor:detectMe(floorNb)
+activate E2Sensor
+E2Sensor->ElevatorControlSystem:newFloor(floorNb)
+activate ElevatorControlSystem
+deactivate E2Sensor
+ElevatorControlSystem->Elevator2:stop()
+Elevator2->adestinationButton:off()
+ElevatorControlSystem->E2Door:open()
+activate E2Door
+E2Door->E2Bell:ring()
+deactivate E2Door
+ElevatorControlSystem->E2Door:close()
+deactivate ElevatorControlSystem
+activate E2Door
+E2Door->E2Door:closeDoor()
+E2Door->E2Bell:ring()
+E2Door->ElevatorControlSystem:readyToMove(carNumber)
+deactivate E2Door
+activate ElevatorControlSystem
