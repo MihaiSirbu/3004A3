@@ -1,50 +1,19 @@
-Mihai Sirbu, COMP3004, A2
+Mihai Sirbu, COMP3004, A3
 
-The submission is 1 folder which consists of this tree folder system. 
+The submission is 1 folder which has all the requirements you need. 
+You need a video reader to read mp4 files, excel to open the traceability matrix, pdf viewers, txtfile readers, etc. None of it being special software.
 
-SUBMISSION FOLDER
-│  Assignment 2 Specification-Feb 1.pdf
-│  Design Explanation.docx
-│  README.txt
-│  TraceabilityMatrix.xlsx
-│  UseCases.pdf
-│
-├─centralized
-│  ├─Class Diagram
-│  │      ClassDiagram.PNG
-│  │
-│  ├─sequence diagram
-│  │  │  central_E1.txt
-│  │  │  DoorObstacles.png
-│  │  │  Fire.png
-│  │  │  Help.png
-│  │  │  Overload (1).png
-│  │  │  Power_Outage.png
-│  │  │
-│  │  ├─Success 2
-│  │  │      central_E1 (1).png
-│  │  │      central_E2 (1).png
-│  │  │      central_E3.png
-│  │  │
-│  │  └─Success1
-│  │          Central_E1.png
-│  │          central_E1.txt
-│  │          central_E2.png
-│  │          central_E3.png
-│  │
-│  └─State Diagrams
-│          ECS_state.png
-│          Elevator_StateDiagram.png
-│
-└─distributed
-    ├─ClassDiagram
-    │      classdiagram.drawio
-    │      ClassDiagram.PNG
-    │
-    └─StateDiagrams
-            ElevatorStateDiagram.png
+You CAN IGNORE build-ECS-Desktop-Debug, build-ECS-Desktop_Qt_5_15_16_MinGW_64_bit-Debug and .git directories, they were for debugging + git. 
+
+Code subfolder contains all the qt code, compiled on the vm.
+Diagrams contains sequence diagrams, State diagrams and UML Class diagrams. There is NO state diagram for the elevator control System, as it does NOT have states.
+
+Use cases, Design explanation and Traceability matrix are in the main folder.
+
+Recordings subfolder contains ALL the videos, broken down by categories. Please watch " General explanation/ GUI explanation first ". 
+
+Feel free to test any of the code, or ask me any questions. 
 
 
 
-As you can see, there are pictures .png files, .txt files, .pdf files, and .xlsx files. 
-You'll need Excel
+
